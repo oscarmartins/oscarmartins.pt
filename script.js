@@ -1,0 +1,46 @@
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+const testcookie = getCookie('sessionid');
+var clientData;
+axios.get('https://api.ipify.org?format=json').then(function (response) {
+    // handle success
+    //console.log(response);
+    clientData = response;
+}).catch(function (error) {
+    // handle error
+    console.log(error);
+}).finally(function () {
+    debugger;
+    setCookie('clientData', clientData.data.ip, 1);
+    axios.post('/', {
+        sessionid: testcookie
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+});
+
+
+
