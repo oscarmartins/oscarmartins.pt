@@ -1,123 +1,79 @@
-<!doctype html>
-<!--
-  Material Design Lite
-  Copyright 2015 Google Inc. All rights reserved.
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License
--->
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A portfolio template that uses Material Design Lite.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Portfolio Oscar Martins </title>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="//code.getmdl.io/1.3.0/material.grey-pink.min.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
-
-<body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
-            <div class="mdl-layout__header-row portfolio-logo-row">
-                <span class="mdl-layout__title">
-                    <div class="portfolio-logo"></div>
-                    <span class="mdl-layout__title">Oscar Rafael  - JavaScript Developer </span>
-                </span>
-            </div>
-            <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
-                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-                    <a class="mdl-navigation__link is-active" href="index.html">Portfolio</a>
-                    <!--a class="mdl-navigation__link" href="blog.html">Blog</a-->
-                    <!--a class="mdl-navigation__link" href="about.html">About</a-->
-                    <a class="mdl-navigation__link" href="contact.html">Contact</a>
-                </nav>
-            </div>
-        </header>
-        <div class="mdl-layout__drawer mdl-layout--small-screen-only">
-            <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-                <a class="mdl-navigation__link is-active" href="index.html">Portfolio</a>
-                <!--a class="mdl-navigation__link" href="blog.html">Blog</a-->
-                <!--a class="mdl-navigation__link" href="about.html">About</a-->
-                <a class="mdl-navigation__link" href="contact.html">Contact</a>
-            </nav>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Demo</title>
+        <link rel="stylesheet" href="node_modules/uikit/dist/css/uikit.min.css">
+        <link rel="stylesheet" href="css/oscar.martins.css">
+    </head>
+    <body class="oscar-martins">
+        
+        <div class="cube cube-2x2 cube-bg-green">
+            <span>O</span>
         </div>
-        <main class="mdl-layout__content">
-            <div class="mdl-grid portfolio-max-width">
-                <div class="divider mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp portfolio-card">
-                    <div class="mdl-card__media">
-                        <img class="article-image" src=" images/example-work01.jpg" border="0" alt="">
-                    </div>
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text"> safeclean.pt </h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Professional website, visible from any device and optimized for search engines.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" target="_blank" href="//www.safeclean.pt">Read more</a>
-                    </div>
+        <div class="cube cube-2x2 cube-bg-orangered">
+            <span>S</span>
+        </div>
+        <div class="cube cube-2x2 cube-bg-blue">
+            <span>C</span>
+        </div>
+        <div class="cube cube-2x2 cube-bg-gold">
+            <span>A</span>
+        </div>
+        <div class="cube cube-2x2 cube-bg-chartreuse">
+            <span>R</span>
+        </div>
+
+        <div class="status-site blink_me"></div>
+
+        <div class="page-container">
+            <div class="console-toolbar">
+                <div class="nano">
+                    <span>GNU nano 2.0.6</span>
+                    <span style="position: absolute;left: 35%;top: 5px;">File: empty.txt</span>
+                    <span id="nano_modified" style="position: absolute;right: 0;margin-top: 5px;padding: 0;"></span>
                 </div>
-                
-                <div class="divider mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp portfolio-card">
-                    <div class="mdl-card__media">
-                        <img class="article-image" src=" images/example-work07.jpg" border="0" alt="">
-                    </div>
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">VendingSoft </h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Vending machine management software.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="/orsoftvending.html" target="_blank">Read more</a>
-                    </div>
-                </div>
-                
-                <!--div class="divider mdl-cell mdl-cell--6-col mdl-card mdl-shadow--4dp portfolio-card">
-                    <div class="mdl-card__media">
-                        <img class="article-image" src=" images/example-work02.jpg" border="0" alt="">
-                    </div>
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">Android.com website</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-                    </div>
-                </div-->
             </div>
-            <footer class="mdl-mini-footer">
-                <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo">Oscar Rafael  - JavaScript Developer </div>
-                </div>
-                <div class="mdl-mini-footer__right-section">
-                    <ul class="mdl-mini-footer__link-list">
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">Privacy & Terms</a></li>
+            <div class="console-monitor">
+                <pre class="term">oscar.martins@dev:~$ </pre>
+            </div>
+            <div class="console-footer">
+                <div class="nano">
+                    <ul class="row">
+                        <li><span>^G</span> Get Help</li>
+                        <li><span>^X</span> Exit</li>
+                    </ul>
+                    <ul class="row">
+                        <li><span>^O</span> WriteOut</li>
+                        <li><span>^J</span> Justify</li>
+                    </ul>
+                    <ul class="row">
+                        <li><span>^R</span> Read File</li>
+                        <li><span>^W</span> Where is</li>
+                    </ul>
+                    <ul class="row">
+                        <li><span>^Y</span> Prev Page</li>
+                        <li><span>^V</span> Next Page</li>
+                    </ul>
+                    <ul class="row">
+                        <li><span>^K</span> Cut Text</li>
+                        <li><span>^U</span> UnCut Text</li>
+                    </ul>
+                    <ul class="row">
+                        <li><span>^C</span> Cur POS</li>
+                        <li><span>^T</span> To Spell</li>
                     </ul>
                 </div>
-            </footer>
-        </main>
-    </div>
-    <script src="//code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="script.js"></script>
-</body>
+            </div>
+        </div>
 
+        <div class="console" style="display: none;visibility: hidden;"></div>
+
+       
+        
+        <script src="dist/bundle.js"></script>
+        <script src="js/typewriter.fx.2.12.2.js"></script>
+        <script src="js/oscar.martins.js"></script>
+        <script src="js/console.om.js"></script>
+    </body>
 </html>

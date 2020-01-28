@@ -1,0 +1,254 @@
+html,
+body.oscar-martins {
+    background: black;
+}
+
+.cube {
+    font-size: large;
+    text-align: center;
+    line-height: 2;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cube-2x2 {
+    width: 2em;
+    height: 2em;
+}
+
+.cube-bg-green {
+    background: green;
+    color: white;
+}
+
+.cube-bg-blue {
+    background: blue;
+    color: white;
+}
+
+.cube-bg-gold {
+    background: gold;
+    color: #333;
+}
+
+.cube-bg-orangered {
+    background: orangered;
+    color: white;
+}
+
+.cube-bg-chartreuse {
+    background: chartreuse;
+    color: #0f6ecd;
+}
+
+div.page-container {
+    position: absolute;
+    top: 4em;
+    left: 4em;
+    right: 4em;
+    bottom: 4em;
+    /*background-color: #7ffbcc42;*/
+    color: white;
+    border: .1em solid #32d296d4;
+    overflow: scroll;
+}
+
+.console {
+    position: absolute;
+    top: 4em;
+    left: 4em;
+    right: 4em;
+    bottom: 4em;
+    background-color: #7ffbcc42;
+    color: white;
+    border: .1em solid #32d296d4;
+    overflow: scroll;
+}
+
+.console span {
+    position: relative;
+    display: block;
+    line-height: 1;
+    padding: .2em;
+    font-family: "Courier New", Courier, "Lucida Console", Monaco, monospace;
+    font-size: small;
+}
+
+/** console monitor **/
+div.console-toolbar div, div.console-footer div{
+    display: none;
+    visibility: hidden;
+    z-index: -1;
+}
+
+div.console-toolbar.nano div.nano, div.console-footer.nano div.nano{
+    display: block!important;
+    visibility: visible!important;
+    z-index: 1!important;
+}
+div.console-toolbar.nano div.nano {
+    position: fixed;
+    left: 4.1em;
+    right: 4.1em;
+    margin-bottom: 1em;
+    background-color: black;
+    display: inline-block;
+    white-space: nowrap;
+    text-align: left;
+    box-sizing: border-box;
+    line-height: 2;
+}
+
+div.console-footer.nano div.nano {
+    position: fixed;
+    left: 4.1em;
+    right: 4.1em;
+    bottom: 4em;
+    white-space: nowrap;
+    display: inline-block !important;
+    overflow: hidden;
+}
+
+div.console-footer.nano div.nano ul.row {
+    margin: .5em 0;
+    width: 15%;
+    height: 1.2em;
+    padding: 0 .3em;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+div.console-footer.nano div.nano ul.row li {
+    list-style: none;
+    font-size: 9pt;
+    color: #222;
+}
+
+div.console-footer.nano div.nano ul.row li span.magenta{
+    outline: .3em solid #f0506e;
+}
+div.console-footer.nano div.nano ul.row li span.blue{
+    outline: .3em solid #1e87f0;
+}
+
+div.console-footer.nano div.nano ul.row li span{
+    background-color: black;
+    color: white;
+}
+
+div.console-toolbar.nano div.nano span{
+    position: relative;
+    margin: 0 1em;
+    font-family: monospace;
+    font-size: 9pt;
+    background-color: black;
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 15%;
+}
+
+.console-monitor {
+    margin: 0 auto;
+    min-height: 100%;
+    width: 100%;
+    background: black;
+}
+
+.console-monitor pre {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    padding: 1em 1em;
+    white-space: pre-line;
+    border: none;
+    color: lawngreen;
+}
+.console-monitor.nano pre{
+    padding: 3em 1em !important;
+}
+.console-monitor.nano, .console-monitor.nano pre{
+    background-color: white !important;
+    color: #333 !important;
+}
+
+h4.console-h4 {
+    color: #333 !important;
+}
+
+span.console-cmd-nano {
+    position: absolute;
+    top: 0;
+
+}
+span.console-cmd-nano::before{
+    content: 'oscar.martins@dev:~$ ';
+}
+
+.console-monitor.term {
+    font-family: monospace;
+    color: #fff;
+    opacity: 0.8;
+    font-size: 2em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.console-monitor .term:after {
+    content: "_";
+    opacity: 1;
+    animation: cursor 1s infinite;
+}
+
+@keyframes cursor {
+    0% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade-out {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+  }
+
+.status-site {
+    position: absolute;
+    top: 1em;
+    left: 5em;
+    right: 5em;
+    color: greenyellow;
+    font-family: "Courier New", Courier, "Lucida Console", Monaco, monospace;
+    font-size: small;
+    background-color: #65656559;
+    padding: 1em;
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+50% {
+    opacity: 0;
+}
+}
+
+/** console monitor **/
