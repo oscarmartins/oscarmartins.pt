@@ -4,6 +4,8 @@ const consoleMonitor = document.querySelector('div.console');
 const statusSite = document.querySelector('.status-site');
 const textarea = document.querySelector('.term');
 const consolem = document.querySelector('div.console-monitor');
+const consoleToolbar = document.querySelector('.console-toolbar');
+const consoleFooter = document.querySelector('.console-footer');
 const body = document.body, html = document.documentElement;
 /**document.documentElement.scrollHeight*/
 const doc_height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
@@ -127,6 +129,84 @@ function Typing (phrase) {
     }
 }
 
+const APP = {
+    nano: (options) => {
+        this.opt = options;
+        this.changeModified = function (isModified) {
+            var modified = document.querySelector('span#nano_modified');
+            modified.innerHTML = '';
+            if (isModified)
+                modified.appendChild(document.createTextNode('modified'));
+        };
+        this.initTypewriter = function (typewriter) {
+            if ('target' in typewriter)
+                return new Typewriter(typewriter.target, (typewriter.options || {}));
+            return null;
+        }
+
+        this.typewriter = this.initTypewriter(this.opt.typewriter || {});
+
+        this.appcontext = function (open) {
+            if (open) {
+                sendMsgStatus('opening [nano]..');
+                consolem.classList.add('fade-out');
+                setTimeout(() => {
+                    consoleToolbar.classList.add('nano');
+                    consoleFooter.classList.add('nano');
+                    consolem.classList.add('nano');
+                    textarea.classList.add('nano');
+                    sendMsgStatus('in progress..', 500);
+                    consolem.classList.remove('fade-out');
+                    if (this.status == 'closed') {
+                        this.status = 'opened';
+                        this.typewriter = this.fn.initTypewriter(this.options.typewriter || {});
+                    }
+                }, 500);
+            } else {
+                sendMsgStatus('closing [nano]..');
+                consolem.classList.add('fade-out');
+                setTimeout(() => {
+                    consoleToolbar.classList.remove('nano');
+                    consoleFooter.classList.remove('nano');
+                    consolem.classList.remove('nano');
+                    textarea.classList.remove('nano');
+                    consolem.classList.remove('fade-out');
+                    this.typewriter.state.elements.container.innerHTML = '';
+                    this.changeModified(false);
+                    sendMsgStatus('closing [nano]..', 1000);
+                    this.status = 'closed';
+                }, 500);
+            }
+        };
+        this.status = '';
+        if (typeof this.opt !== 'undefined') {
+            this.status = this.opt.action;
+            switch (this.opt.action) {
+                case 'open':
+                    this.appcontext(true);
+                    break;
+                case 'close':
+                    this.appcontext(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return {
+            status: this.status,
+            options: this.opt,
+            fn: {
+                initTypewriter: this.initTypewriter,
+                changeModified: this.changeModified
+            },
+            appcontext: this.appcontext,
+            changeModified: this.changeModified,
+            typewriter: this.typewriter
+        }
+    }
+}
+
 function updatePageContainer () {
     var pagecontainer = document.querySelector('.page-container');
     pagecontainer.scrollTo(0 , pagecontainer.scrollHeight - pagecontainer.offsetHeight);
@@ -145,12 +225,15 @@ function helpInfo () {
         ' · I love Animals',
     ];
     textarea.innerHTML = 'oscar.martins@dev:~$ ';
-    consolem.className = consolem.className.replace(/\b fade-out\b/,'');
+    consolem.classList.remove('fade-out');
     consolem.style.position = 'relative';
     consolem.style.display = 'block';
     
-    var typewriter = new Typewriter(textarea, {loop: false,delay: 75});
-    typewriter
+    const editornano = APP.nano({action: '', typewriter: {target: textarea, options: {loop: false,delay: 75}}});
+
+    /**var typewriter = new Typewriter(textarea, {loop: false,delay: 75});**/
+    
+    editornano.typewriter
     .pauseFor(2500)
     .callFunction(() => {
         sendMsgStatus('the admin is typing...');
@@ -158,21 +241,24 @@ function helpInfo () {
     })
     .typeString(' <span class="console-cmd-nano">nano empty.txt  </span><br>')
     .callFunction(() => {
+        /*
         sendMsgStatus('opening [nano]..');
-        consolem.className = consolem.className + 'fade-out';
+        consolem.classList.add('fade-out');
+        */
+       editornano.appcontext(true);
     })
     .pauseFor(1000)
     .callFunction(() => {
-        const span = document.querySelector('.console-cmd-nano');
-        span.parentElement.removeChild(span);
-        var consoleToolbar = document.querySelector('.console-toolbar');
-        consoleToolbar.className = consoleToolbar.className + ' nano';
-        var consoleFooter = document.querySelector('.console-footer');
-        consoleFooter.className = consoleFooter.className + ' nano';
-        consolem.className = consolem.className.replace(/\b fade-out\b/,'');
-        consolem.className = consolem.className + ' nano';
-        textarea.className = textarea.className + ' nano';
+        const consoleCmdNano = document.querySelector('.console-cmd-nano');
+        consoleCmdNano.parentElement.removeChild(consoleCmdNano);
+        /**
+        consoleToolbar.classList.add('nano');
+        consoleFooter.classList.add('nano');
+        consolem.classList.add('nano');
+        textarea.classList.add('nano');
         sendMsgStatus('in progress..');
+        consolem.classList.remove('fade-out');
+        */
     })
     .pauseFor(2500)
     .callFunction(() => {
@@ -180,8 +266,7 @@ function helpInfo () {
     })
     .typeString('Hi, <br>')
     .callFunction(() => {
-        var modified = document.querySelector('span#nano_modified');
-        modified.appendChild(document.createTextNode('modified'));
+        editornano.changeModified(true);
     })
     
     .pauseFor(300)
@@ -211,6 +296,10 @@ function helpInfo () {
     .callFunction(() => {
         sendMsgStatus('the admin is typing...', 100);
         clearInterval(updateScrollInterval);
+    })
+    .pauseFor(2000)
+    .callFunction(() => {
+        editornano.appcontext(false);
     })
     /*.changeCursor('oscar.martins@dev:~$')*/
     .start();
@@ -251,3 +340,13 @@ document.addEventListener('keydown', function(event) {
     }
 
   });
+
+/**
+  const sseSource = new EventSource('/event-stream');
+  sseSource.addEventListener('message', (e) => {
+      const messageData = e.data;
+      console.log(messageData);
+  });
+**/
+// When finished with the source close the connection
+/*sseSource.close();**/

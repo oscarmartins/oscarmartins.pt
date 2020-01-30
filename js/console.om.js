@@ -4,10 +4,19 @@ var text = 'sh oscar.martins.sh';
 var i = 0;
 var count = 0;
 var time = 1;
+var timers = [];
+const n_date = new Date().toDateString();
 
-sendMsgStatus('the admin is typing...');
-
-runner();
+function runProcess () {
+  i = speed = count = 0;
+  time = 1;
+  timers.forEach((t) => {
+    clearTimeout(t);
+  });
+  timers = [];
+  sendMsgStatus('Initialising system...');
+  feedbacker();
+}
 
 function runner() {
   textarea.appendChild(document.createTextNode(text.charAt(i)));
@@ -19,10 +28,7 @@ function runner() {
       } else {
         textarea.appendChild(document.createElement("br"));
         i = 0;
-        setTimeout(function() {
-          sendMsgStatus('Initialising system...');
-          feedbacker();
-        }, 1000);
+        setTimeout(runProcess, 1000);
       }
     }, Math.floor(Math.random() * 220) + 50);
 }
@@ -61,9 +67,9 @@ function feedbacker() {
         sendMsgStatus('system initialized...');
         textarea.appendChild(document.createTextNode("Initialising..."));
         textarea.appendChild(document.createElement("br"));
-        setTimeout(function() {
+        timers[timers.length +1] = setTimeout(function() {
             consolem.className += ' fade-out ';
-            setTimeout(function() {
+            timers[timers.length +1] = setTimeout(function() {
                 consolem.style.zIndex = -1;
                 consolem.style.position = 'relative';
                 consolem.style.display = 'none';
@@ -74,8 +80,8 @@ function feedbacker() {
                 .typeString(' <span>_</span>')
                 .pauseFor(2500)
                 .start();
-                setTimeout(moveCubes, -1, 'L', function () {
-                  setTimeout(helpInfo, 1);
+                timers[timers.length +1] = setTimeout(moveCubes, -1, 'L', function () {
+                  timers[timers.length +1] = setTimeout(helpInfo, 1);
                 });
             }, 1000);
         }, 500);
@@ -83,9 +89,7 @@ function feedbacker() {
     },time);
 }
 
-var date = new Date().toDateString();
-
-var output = ["CPU0 microcode updated early to revision 0x1b, date = " + date,
+var output = ["CPU0 microcode updated early to revision 0x1b, date = " + n_date,
 "Initializing cgroup subsys cpuset",
 "Initializing cgroup subsys cpu",
 "Initializing cgroup subsys cpuacct",
@@ -1409,3 +1413,8 @@ var output = ["CPU0 microcode updated early to revision 0x1b, date = " + date,
 "virbr0: port 1(virbr0-nic) entered listening state",
 "virbr0: port 1(virbr0-nic) entered disabled state",
 "Initialising...", ""];
+
+setImmediate(() => {
+  sendMsgStatus('the admin is typing...');
+  runner();
+}, 1);

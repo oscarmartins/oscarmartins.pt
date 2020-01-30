@@ -50,7 +50,7 @@ div.page-container {
     /*background-color: #7ffbcc42;*/
     color: white;
     border: .1em solid #32d296d4;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .console {
@@ -62,7 +62,7 @@ div.page-container {
     background-color: #7ffbcc42;
     color: white;
     border: .1em solid #32d296d4;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .console span {
